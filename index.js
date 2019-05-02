@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const {USER, PASS} = process.env;
+const {UNI_USER, UNI_PASS} = process.env;
 
 ;(async () => {
   const browser = await puppeteer.launch({
@@ -21,10 +21,10 @@ const {USER, PASS} = process.env;
   console.log('>> Loging in...')
 
   await page.waitForSelector('#txtUsrname')
-  await page.type('#txtUsrname', USER)
+  await page.type('#txtUsrname', UNI_USER)
 
   await page.waitForSelector('#txtPassword')
-  await page.type('#txtPassword', PASS)
+  await page.type('#txtPassword', UNI_PASS)
   
   await page.setViewport({ width: 1680, height: 893 })
 
