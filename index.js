@@ -77,7 +77,6 @@ const {UNI_USER, UNI_PASS} = process.env;
         const instructors = instructorText.trim().split(/<br>|\n/)
         return instructors.filter(Boolean) // filter out any empty strings
       })
-      console.log(instructorList)
 
       // Instructor
 
@@ -114,11 +113,6 @@ const {UNI_USER, UNI_PASS} = process.env;
 
       await page.waitForSelector('#ContentPlaceHolder1_lkbSave > b')
       await page.click('#ContentPlaceHolder1_lkbSave > b')
-
-      await navigationPromise
-
-      await page.waitForSelector('.panel > .panel-heading > .pull-right > #ContentPlaceHolder1_lkbSave > b')
-      await page.click('.panel > .panel-heading > .pull-right > #ContentPlaceHolder1_lkbSave > b')
 
       await navigationPromise
       
