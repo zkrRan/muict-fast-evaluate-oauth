@@ -42,7 +42,6 @@ const {UNI_USER, UNI_PASS} = process.env;
   var isStop = 0;
 
   while (i++) {
-    console.log(i)
     const courseElement = await page.$('#ContentPlaceHolder1_gdvStdEva > tbody > tr:nth-child(' + i + ') > td:nth-child(2)')
 
     if (!courseElement) {
@@ -50,7 +49,12 @@ const {UNI_USER, UNI_PASS} = process.env;
       break;
     }
     
-    const courseID = await page.evaluate(element => element.textContent, '#ContentPlaceHolder1_gdvStdEva > tbody > tr:nth-child(' + (i) + ') > td:nth-child(2)')
+    const courseIDElement = await page.$(`#ContentPlaceHolder1_gdvStdEva > tbody > tr:nth-child(${i}) > td:nth-child(2)`);
+    const courseID = await page.evaluate(element => element ? element.textContent.trim() : null, courseIDElement);
+    if (!courseID) {
+      console.log(`Unable to find course ID for row ${i}`);
+      continue;
+    }
 
     const buttonElement = await page.$('#ContentPlaceHolder1_gdvStdEva_lkbEvaluate_' + (i - 2) + ' > b')
 
@@ -175,5 +179,5 @@ const {UNI_USER, UNI_PASS} = process.env;
     }
   }
   
-  await browser.close()
+  // await browser.close()
 })()
