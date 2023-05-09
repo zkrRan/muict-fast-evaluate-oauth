@@ -67,106 +67,53 @@ const {UNI_USER, UNI_PASS} = process.env;
       
       await navigationPromise
 
-      // Lecturer
+      // Wait for the instructor list to appear
+      await page.waitForSelector('#ContentPlaceHolder1_rptHead_labinstructor')
 
-      for (j = 0; j > -1; j++) {
-        await navigationPromise
+      // Extract the instructor list using page.evaluate
+      const instructorList = await page.evaluate(() => {
+        const instructorSpan = document.querySelector('#ContentPlaceHolder1_rptHead_labinstructor')
+        const instructorText = instructorSpan.innerText
+        const instructors = instructorText.trim().split(/<br>|\n/)
+        return instructors.filter(Boolean) // filter out any empty strings
+      })
+      console.log(instructorList)
 
-        await page.waitFor(600)
+      // Instructor
 
-        if (!await page.$('.tableedit:nth-child(5) > tbody > tr > .paddingR:nth-child(2) > .radio > label')) {
-          break;
-        } else {
-          await page.waitForSelector('.tableedit:nth-child(5) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(5) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
+      for (let instructor of instructorList) {
+        // Wait for the table to appear
+        await page.waitForSelector('.tableedit')
 
-          await page.waitForSelector('.tableedit:nth-child(6) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(6) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
+        // Auto 5, change this to something else if you want to give lower scores
+        const rdb5s = await page.$$('.tableedit .paddingR:nth-child(2) .radio input[value="rdb5"]')
 
-          await page.waitForSelector('.tableedit:nth-child(7) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(7) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(8) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(8) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(9) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(9) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(10) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(10) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(11) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(11) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(12) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(12) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(13) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(13) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(14) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(14) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(16) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(16) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(17) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(17) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(18) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(18) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(22) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(22) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(21) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(21) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(20) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(20) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(19) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(19) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(24) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(24) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(25) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(25) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(26) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(26) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(27) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(27) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('.tableedit:nth-child(28) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-          await page.click('.tableedit:nth-child(28) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-
-          await page.waitForSelector('#ContentPlaceHolder1_lkbNext')
-          await page.click('#ContentPlaceHolder1_lkbNext')
+        // Loop through each radio button and click it
+        for (let rdb5 of rdb5s) {
+          await page.waitForTimeout(500) // wait for 500ms before clicking the element
+          await rdb5.click()
         }
+
+        await page.waitForSelector('#ContentPlaceHolder1_lkbNext')
+        await page.click('#ContentPlaceHolder1_lkbNext')
       }
 
       // Course
       
-      await page.waitForSelector('.tableedit:nth-child(4) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      await page.click('.tableedit:nth-child(4) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      
-      await page.waitForSelector('.tableedit:nth-child(5) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      await page.click('.tableedit:nth-child(5) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      
-      await page.waitForSelector('.tableedit:nth-child(6) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      await page.click('.tableedit:nth-child(6) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      
-      await page.waitForSelector('.tableedit:nth-child(7) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      await page.click('.tableedit:nth-child(7) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      
-      await page.waitForSelector('.tableedit:nth-child(8) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      await page.click('.tableedit:nth-child(8) > tbody > tr > .paddingR:nth-child(2) > .radio > label')
-      
-      await page.waitForSelector('.row > .panel > .panel-heading > .pull-right > #ContentPlaceHolder1_lkbNext')
-      await page.click('.row > .panel > .panel-heading > .pull-right > #ContentPlaceHolder1_lkbNext')
+      // Wait for the table to appear
+      await page.waitForSelector('.tableedit')
+
+      // Auto 5, change this to something else if you want to give lower scores
+      const rdb5s = await page.$$('.tableedit .paddingR:nth-child(2) .radio input[value="rdb5"]')
+
+      // Loop through each radio button and click it
+      for (let rdb5 of rdb5s) {
+        await page.waitForTimeout(500) // wait for 500ms before clicking the element
+        await rdb5.click()
+      }
+
+      await page.waitForSelector('#ContentPlaceHolder1_lkbSave > b')
+      await page.click('#ContentPlaceHolder1_lkbSave > b')
 
       await navigationPromise
 
@@ -179,5 +126,5 @@ const {UNI_USER, UNI_PASS} = process.env;
     }
   }
   
-  // await browser.close()
+  await browser.close()
 })()
